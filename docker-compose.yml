@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  db:
+    restart: always
+    image: postgres:13.3
+    ports:
+      - "5501:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PGPORT=5432
+    network_mode: "host"
+    env_file:
+      - .env
+    healthcheck:
+      test: pg_isready
+      interval: "10s"
+      timeout: "5s"
+      retries: 5
+    volumes:
+      - db:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    network_mode: host
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  db:
