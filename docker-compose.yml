@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-      - PGPORT=5437
+      - PGPORT=5432
     network_mode: "host"
     env_file:
       - .env
@@ -21,7 +21,6 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
   pgadmin:
-    container_name: psql_admin
     image: dpage/pgadmin4
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
