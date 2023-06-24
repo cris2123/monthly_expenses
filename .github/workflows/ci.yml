@@ -1,0 +1,26 @@
+name: monthly expenses ci
+
+on: push
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          - 18
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Run linter
+        run: |
+          npm run lint
+
+      - name: run tests
+        run: npm run test
