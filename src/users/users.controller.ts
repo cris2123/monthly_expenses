@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { User } from './user.model';
 
 @Controller()
-export class UserController {
+export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get('/test')
